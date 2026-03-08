@@ -60,19 +60,19 @@ class PredictionInput(BaseModel):
     cg: float = Field(
         ...,
         ge=0,
-        le=10,
+        le=1000,
         description="Indicador CG."
     )
     cf: float = Field(
         ...,
         ge=0,
-        le=10,
+        le=200,
         description="Indicador CF."
     )
     ct: float = Field(
         ...,
         ge=0,
-        le=10,
+        le=20,
         description="Indicador CT."
     )
     inde_22: float = Field(
