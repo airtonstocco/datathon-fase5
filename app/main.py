@@ -11,6 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
 from src.train import train_model_pipeline
+from app.schemas import PredictionInput
+from app.predict import predict_model
 
 app = FastAPI(title="API predição de defasagem escolar")
 @app.get("/", include_in_schema=False)
@@ -27,9 +29,10 @@ app.add_middleware(
 # ===========================
 # PREVER ALUNOS COM RISCO DE DEFASAGEM
 # ===========================
-@app.get("/predict")
-def predict():
-    return {'oi': 'hi'}
+@app.post("/predict")
+def predict(data: PredictionInput):
+    result = predict_model(data)
+    return {"prediction": result}
 
 # ===========================
 # TREINAR MODELO COM NOVOS DADOS
