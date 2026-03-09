@@ -89,7 +89,7 @@ xgboost
 ## Pré-requisitos
 
 -   Python 3.12+
--   Docker (opcional)
+-   Docker
 -   pip
 
 ## Instalação
@@ -144,28 +144,52 @@ Endpoint:
 
     POST /predict
 
-### Exemplo de requisição
+### Exemplo de requisição 1
 
     curl -X POST "http://localhost:8000/predict" \
     -H "Content-Type: application/json" \
     -d '{
-      "instituicao_de_ensino": "Escola Pública",
-      "pedra_20": "Ágata",
-      "pedra_21": "Quartzo",
-      "indicado": "Sim",
-      "atingiu_pv": "Não",
-      "cg": 7.5,
-      "cf": 6.8,
-      "ct": 8.1,
-      "inde_22": 6.9
+        "atingiu_pv": "Não",
+        "cf": 53,
+        "cg": 400,
+        "ct": 7,
+        "inde_22": 6.9,
+        "indicado": "Sim",
+        "instituicao_de_ensino": "Escola Pública",
+        "pedra_20": "Ágata",
+        "pedra_21": "Quartzo"
     }'
 
-### Resposta esperada
+### Resposta esperada 1
 
     {
-      "prediction": 1,
-      "probability": 0.7421,
-      "threshold": 0.47
+        "prediction": 0,
+        "probability": 0.4594,
+        "threshold": 0.5511
+    }
+
+### Exemplo de requisição 2
+
+    curl -X POST "http://localhost:8000/predict" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "atingiu_pv": "Não",
+        "cf": 50,
+        "cg": 800,
+        "ct": 10,
+        "inde_22": 8,
+        "indicado": "Não",
+        "instituicao_de_ensino": "Escola Pública",
+        "pedra_20": "Quartzo",
+        "pedra_21": "Quartzo"
+    }'
+
+### Resposta esperada 2
+
+    {
+        "prediction": 1,
+        "probability": 0.5859,
+        "threshold": 0.5511
     }
 
 ------------------------------------------------------------------------
