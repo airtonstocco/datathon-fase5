@@ -1,3 +1,4 @@
+from fastapi import logger
 import joblib
 import pandas as pd
 
@@ -13,6 +14,7 @@ best_threshold = artifact.get("threshold", 0.5)
 
 def predict_model(data):
     df = pd.DataFrame([data.model_dump()])
+
 
     # se algum campo vier como Enum, converte para string
     for col in df.columns:
@@ -43,6 +45,12 @@ def predict_model(data):
     y_prob = model.predict_proba(df)[:, 1][0]
     y_pred = int(y_prob >= best_threshold)
 
+    logger.info("Nova requisição recebida")
+
+    prediction = model.predict(df)
+
+    logger.info(f"Prediction gerada: {prediction}")
+    
     return {
         "prediction": y_pred,
         "probability": round(float(y_prob), 4),

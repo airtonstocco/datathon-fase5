@@ -7,6 +7,7 @@ if not hasattr(np, "float_"):
 import pandas as pd
 from evidently.report import Report
 from evidently.metric_preset import DataDriftPreset
+from logs import logger
 
 df = pd.read_excel("base_dados.xlsx")
 
@@ -14,6 +15,8 @@ train = df.sample(frac=0.7, random_state=42)
 prod = df.drop(train.index)
 
 report = Report(metrics=[DataDriftPreset()])
+
+logger.info("Iniciando verificação de drift")
 
 report.run(
     reference_data=train,
