@@ -1,4 +1,4 @@
-from fastapi import logger
+import logging
 import joblib
 import pandas as pd
 
@@ -6,7 +6,7 @@ from src.preprocessing import normalize_df_columns, transform_instituicao_text
 from src.feature_engineering import one_hot_encoding
 
 artifact = joblib.load("model.pkl")
-
+logger = logging.getLogger(__name__)
 model = artifact["model"]
 model_features = artifact["features"]
 best_threshold = artifact.get("threshold", 0.5)

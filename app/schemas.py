@@ -109,20 +109,17 @@ class MetricsResponse(BaseModel):
     f1_score: float = Field(..., ge=0, le=1)
     roc_auc: float = Field(..., ge=0, le=1)
 
-
 class ConfusionMatrixResponse(BaseModel):
     true_negative: int = Field(..., ge=0)
     false_positive: int = Field(..., ge=0)
     false_negative: int = Field(..., ge=0)
     true_positive: int = Field(..., ge=0)
 
-
-class TrainResponse(BaseModel):
-    threshold: float = Field(
-        ...,
-        ge=0,
-        le=1,
-        description="Threshold encontrado durante o treinamento."
-    )
+class EvaluationResponse(BaseModel):
+    threshold: float = Field(..., ge=0, le=1)
     metrics: MetricsResponse
     confusion_matrix: ConfusionMatrixResponse
+
+class TrainResponse(BaseModel):
+    status: str
+    evaluation: EvaluationResponse
